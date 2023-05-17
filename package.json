@@ -1,5 +1,5 @@
 {
-  "name": "weekgolf-cli",
+  "name": "weekgolf",
   "version": "1.0.0",
   "description": "Unofficial CLI for weekgolf.net",
   "main": "dist/index.js",
@@ -21,6 +21,12 @@
   "bin": {
     "wg": "./dist/index.js"
   },
+  "keywords": [
+    "cli",
+    "weekgolf"
+  ],
+  "repository": "https://github.com/Steffan153/weekgolf-cli",
+  "homepage": "https://github.com/Steffan153/weekgolf-cli",
   "devDependencies": {
     "@types/node": "^20.1.5",
     "@types/prompts": "^2.4.4",
