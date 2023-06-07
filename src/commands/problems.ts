@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import type { BuilderCallback, ArgumentsCamelCase } from 'yargs';
 import getColorLangs from '../utils/color-langs.js';
+import { fetchAPI } from '../utils/auth.js';
 
 export const problemsBuilder: BuilderCallback<{}, {}> = (yargs) => {
   yargs.option('sort-rating', {
@@ -12,9 +13,7 @@ export const problemsBuilder: BuilderCallback<{}, {}> = (yargs) => {
 export const problemsHandler = async (argv: ArgumentsCamelCase<{}>) => {
   const colorLangs = await getColorLangs();
 
-  const x = await (
-    await fetch(`https://api.weekgolf.net/api/v1/problems`)
-  ).json();
+  const x = await fetchAPI('/api/v1/problems');
   x.forEach((x: any) => {
     x.rating = x.voters ? x.sum_votes / x.voters * 100 : 0;
   });

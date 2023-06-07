@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import type { BuilderCallback, ArgumentsCamelCase } from 'yargs';
 import getColorLangs from '../utils/color-langs.js';
 import boxen from 'boxen';
+import { fetchAPI } from '../utils/auth.js';
 
 export const problemBuilder: BuilderCallback<{}, {}> = (yargs) => {
   yargs.positional('id', {
@@ -26,9 +27,7 @@ export const problemHandler = async (argv: ArgumentsCamelCase<{}>) => {
     sum_votes,
     title,
     voters,
-  } = await (
-    await fetch(`https://api.weekgolf.net/api/v1/problem?id=` + argv.id)
-  ).json();
+  } = await fetchAPI(`/api/v1/problem?id=` + argv.id);
   const rating = voters
     ? Math.round((sum_votes / voters) * 100) / 10 + '%'
     : 'Not rated';

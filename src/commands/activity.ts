@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import type { BuilderCallback, ArgumentsCamelCase } from 'yargs';
 import getColorLangs from '../utils/color-langs.js';
+import { fetchAPI } from '../utils/auth.js';
 
 export const activityBuilder: BuilderCallback<{}, {}> = (yargs) => {
   yargs
@@ -35,11 +36,9 @@ export const activityHandler = async (argv: ArgumentsCamelCase<{}>) => {
 
   const filterS = encodeURIComponent(JSON.stringify(filter));
 
-  const url = `https://api.weekgolf.net/api/v1/activity?page=${argv.page}&filter=${filterS}`;
-
   const colorLangs = await getColorLangs();
 
-  const x = await (await fetch(url)).json();
+  const x = await fetchAPI(`/api/v1/activity?page=${argv.page}&filter=${filterS}`);
   x.forEach((x: any) => {
     const date = new Date(x.activity_date);
     const dateStr = chalk.gray((

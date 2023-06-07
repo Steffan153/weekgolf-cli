@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import chalk from 'chalk';
 import getColorLangs from '../utils/color-langs.js';
+import { fetchAPI } from '../utils/auth.js';
 export const problemsBuilder = (yargs) => {
     yargs.option('sort-rating', {
         alias: 'r',
@@ -17,7 +18,7 @@ export const problemsBuilder = (yargs) => {
 };
 export const problemsHandler = (argv) => __awaiter(void 0, void 0, void 0, function* () {
     const colorLangs = yield getColorLangs();
-    const x = yield (yield fetch(`https://api.weekgolf.net/api/v1/problems`)).json();
+    const x = yield fetchAPI('/api/v1/problems');
     x.forEach((x) => {
         x.rating = x.voters ? x.sum_votes / x.voters * 100 : 0;
     });

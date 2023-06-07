@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Netrc } from 'netrc-parser';
 import prompts from 'prompts';
+import { fetchAPI } from '../utils/auth.js';
 export const loginBuilder = () => { };
 export const loginHandler = () => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = yield prompts([
@@ -23,7 +24,7 @@ export const loginHandler = () => __awaiter(void 0, void 0, void 0, function* ()
             message: 'Password:'
         }
     ]);
-    const res = yield fetch("https://api.weekgolf.net/api/v1/login", {
+    const { token } = yield fetchAPI("/api/v1/login", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +34,6 @@ export const loginHandler = () => __awaiter(void 0, void 0, void 0, function* ()
             name: username,
         })
     });
-    const { token } = yield res.json();
     const netrc = new Netrc();
     netrc.loadSync();
     netrc.machines['api.weekgolf.net'] = { token };

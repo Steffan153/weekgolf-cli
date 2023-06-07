@@ -7,6 +7,7 @@ import { activityBuilder, activityHandler } from './commands/activity.js';
 import { problemsBuilder, problemsHandler } from './commands/problems.js';
 import { loginBuilder, loginHandler } from './commands/login.js';
 import { problemBuilder, problemHandler } from './commands/problem.js';
+import { solutionsBuilder, solutionsHandler } from './commands/solutions.js';
 
 yargs(hideBin(process.argv))
   .scriptName('wg')
@@ -28,6 +29,12 @@ yargs(hideBin(process.argv))
     'Get a problem by ID',
     problemBuilder,
     problemHandler
+  )
+  .command(
+    'solutions <problem_id> <language>',
+    'Get solutions for a problem in a language',
+    solutionsBuilder,
+    solutionsHandler
   )
   .command('login', 'Login to your account', loginBuilder, loginHandler)
   .demandCommand()

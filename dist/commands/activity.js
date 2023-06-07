@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import chalk from 'chalk';
 import getColorLangs from '../utils/color-langs.js';
+import { fetchAPI } from '../utils/auth.js';
 export const activityBuilder = (yargs) => {
     yargs
         .positional('page', {
@@ -35,9 +36,8 @@ export const activityBuilder = (yargs) => {
 export const activityHandler = (argv) => __awaiter(void 0, void 0, void 0, function* () {
     const filter = Object.assign(Object.assign(Object.assign({}, (argv.lang ? { lang: argv.lang } : {})), (argv.problem ? { problem: argv.problem } : {})), (argv.user ? { player: argv.user } : {}));
     const filterS = encodeURIComponent(JSON.stringify(filter));
-    const url = `https://api.weekgolf.net/api/v1/activity?page=${argv.page}&filter=${filterS}`;
     const colorLangs = yield getColorLangs();
-    const x = yield (yield fetch(url)).json();
+    const x = yield fetchAPI(`/api/v1/activity?page=${argv.page}&filter=${filterS}`);
     x.forEach((x) => {
         const date = new Date(x.activity_date);
         const dateStr = chalk.gray((date.toLocaleDateString() +

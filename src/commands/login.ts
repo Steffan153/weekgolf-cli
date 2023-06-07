@@ -1,5 +1,6 @@
 import { Netrc } from 'netrc-parser';
 import prompts from 'prompts';
+import { fetchAPI } from '../utils/auth.js';
 
 export const loginBuilder = () => {};
 
@@ -17,7 +18,7 @@ export const loginHandler = async () => {
     }
   ]);
 
-  const res = await fetch("https://api.weekgolf.net/api/v1/login", {
+  const { token } = await fetchAPI("/api/v1/login", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -27,7 +28,6 @@ export const loginHandler = async () => {
       name: username,
     })
   });
-  const { token } = await res.json();
   
   const netrc = new Netrc();
   netrc.loadSync();
