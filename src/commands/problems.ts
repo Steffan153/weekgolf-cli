@@ -4,7 +4,7 @@ import getColorLangs from '../utils/color-langs.js';
 import { fetchAPI } from '../utils/auth.js';
 
 export const problemsBuilder: BuilderCallback<{}, {}> = (yargs) => {
-  yargs.option('sort-rating', {
+  yargs.option('sort_rating', {
     alias: 'r',
     describe: 'Sort by rating instead of ID',
   });
@@ -17,7 +17,7 @@ export const problemsHandler = async (argv: ArgumentsCamelCase<{}>) => {
   x.forEach((x: any) => {
     x.rating = x.voters ? x.sum_votes / x.voters * 100 : 0;
   });
-  if (argv['sort-rating']) {
+  if (argv.sort_rating) {
     x.sort((a: any, b: any) => a.rating - b.rating);
   }
   x.forEach((x: any) => {

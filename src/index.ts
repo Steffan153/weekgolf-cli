@@ -8,6 +8,7 @@ import { problemsBuilder, problemsHandler } from './commands/problems.js';
 import { loginBuilder, loginHandler } from './commands/login.js';
 import { problemBuilder, problemHandler } from './commands/problem.js';
 import { solutionsBuilder, solutionsHandler } from './commands/solutions.js';
+import { leaderboardBuilder, leaderboardHandler } from './commands/leaderboard.js';
 
 yargs(hideBin(process.argv))
   .scriptName('wg')
@@ -35,6 +36,12 @@ yargs(hideBin(process.argv))
     'Get solutions for a problem in a language',
     solutionsBuilder,
     solutionsHandler
+  )
+  .command(
+    'leaderboard <problem_id> <language>',
+    'Get the leaderboard for a problem in a language',
+    leaderboardBuilder,
+    leaderboardHandler
   )
   .command('login', 'Login to your account', loginBuilder, loginHandler)
   .demandCommand()
